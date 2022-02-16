@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { searchUsersReq } from "../reducers/user/action";
 
-const Search = () => {
+const Search = (props) => {
+
+    const {
+        userList = [],
+        searchUsers
+    } = props;
+
+    // 이름으로 검색할 예정
+    const [name, setName] = useState("");
+
     return (
         <div>
             <div>
@@ -9,8 +20,8 @@ const Search = () => {
             </div>
             검색페이지
             <div>
-                <input />
-                <button>검색</button>
+                <input value={name} onChange={(e)=> setName(e.target.value)} />
+                <button onClick={() => searchUsers(`?name=${name}`)}>검색</button>
                 <div>
                     <table>
                         <thead>
@@ -27,19 +38,19 @@ const Search = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {userList?.map(user =>     */}
+                            {userList?.map(user =>    
                             <tr>
                                 <td>
-                                    {/* {user.name} */}
+                                    {user.name}
                                 </td>
                                 <td>
-                                    {/* {user.phone} */}
+                                    {user.phone}
                                 </td>
                                 <td>
-                                    {/* {user.email} */}
+                                    {user.email}
                                 </td>
                             </tr>
-                            {/* )} */}
+                            )}
                         </tbody>
                     </table>
                 </div>
@@ -48,4 +59,16 @@ const Search = () => {
     )
 }
 
-export default Search;
+const mapDispathToProps = (dispatch) => {
+    return {
+        searchUsers: (params) => dispatch(searchUsersReq(params))
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        userList: state.userReducer.userList
+    }
+}
+
+export default connect(mapStateToProps, mapDispathToProps)(Search);

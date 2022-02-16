@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Main = (props) => {
     const {
-        
+        userList = []
     } = props;
 
     return (
@@ -14,7 +14,7 @@ const Main = (props) => {
             </div>
             메인페이지
             <div>
-                {"검색된 사용자 수 => " + 0}
+                {"검색된 사용자 수 => " + userList.length}
             </div>
         </div>
     )

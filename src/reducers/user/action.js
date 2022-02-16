@@ -8,8 +8,8 @@ export const SEARCH_USERS_FAIL = "SEARCH_USERS_FAIL";
 export const searchUsersReq = (params) => {
     /* 검색 요청시 params로 검색 조건을 전달하는 액션함수 */
     return {
-        type: SEARCH_USERS_REQ
-        
+        type: SEARCH_USERS_REQ,
+        params
     }
 }
 
